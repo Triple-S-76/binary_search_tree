@@ -40,35 +40,13 @@ class Tree
   end
 
   def find(element, node = root)
-    direction = find_direction(element, node)
-    find_element(element, node, direction)
-  end
+    return puts "#{element} is not in the tree" if node.nil?
 
-  def find_direction(element, node)
-    if node.data == element
-      'match'
-    elsif node.data.nil?
-      answer 'nil'
+    if element == node.data
+      puts "#{element} is in the tree"
     elsif element < node.data
-      'left'
-    else
-      'right'
-    end
-  end
-
-  def find_element(element, node, direction)
-    case direction
-    when 'match'
-      true
-    when 'nil'
-      false
-    when 'left'
-      return "#{element} is not in the tree" if node.left.nil?
-
       find(element, node.left)
-    when 'right'
-      return "#{element} is not in the tree" if node.right.nil?
-
+    else
       find(element, node.right)
     end
   end

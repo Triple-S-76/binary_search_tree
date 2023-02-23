@@ -19,4 +19,5 @@ puts
 puts
 puts
 
-p binary_search_tree.find(4)
+binary_search_tree.find(4)
+binary_search_tree.find(99)
