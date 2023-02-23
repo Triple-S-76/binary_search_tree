@@ -18,3 +18,5 @@ binary_search_tree.pretty_print
 puts
 puts
 puts
+
+p binary_search_tree.find(4)

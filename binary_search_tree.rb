@@ -39,6 +39,40 @@ class Tree
     node
   end
 
+  def find(element, node = root)
+    direction = find_direction(element, node)
+    find_element(element, node, direction)
+  end
+
+  def find_direction(element, node)
+    if node.data == element
+      'match'
+    elsif node.data.nil?
+      answer 'nil'
+    elsif element < node.data
+      'left'
+    else
+      'right'
+    end
+  end
+
+  def find_element(element, node, direction)
+    case direction
+    when 'match'
+      true
+    when 'nil'
+      false
+    when 'left'
+      return "#{element} is not in the tree" if node.left.nil?
+
+      find(element, node.left)
+    when 'right'
+      return "#{element} is not in the tree" if node.right.nil?
+
+      find(element, node.right)
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
