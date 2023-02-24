@@ -9,7 +9,7 @@ random_numbers = []
 end
 array2 = random_numbers.sort.uniq
 
-binary_search_tree = Tree.new(array1)
+binary_search_tree = Tree.new([1, 2, 3])
 
 puts
 puts
