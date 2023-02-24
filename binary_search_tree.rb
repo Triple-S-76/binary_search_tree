@@ -40,6 +40,8 @@ class Tree
   end
 
   def find(element, node = root)
+    return puts "'#{element}' is invalid" if element.class != Integer
+
     return puts "#{element} is not in the tree" if node.nil?
 
     if element == node.data
