@@ -20,7 +20,7 @@ class Tree
   attr_reader :root
 
   def initialize(array = [])
-    p "this is the original array: #{array}"
+    # p "this is the original array: #{array}"
     if array.empty?
       @root = Node.new(nil)
     else
@@ -44,12 +44,12 @@ class Tree
   end
 
   def find(element, node = root)
-    return puts "'#{element}' is invalid" unless element.is_a?(Numeric)
+    return "'#{element}' is invalid" unless element.is_a?(Numeric)
 
-    return puts "#{element} is not in the tree" if node.nil? || node.data.nil?
+    return "#{element} is not in the tree" if node.nil? || node.data.nil?
 
     if element == node.data
-      puts "#{element} is in the tree"
+      "#{element} is in the tree"
     elsif element < node.data
       find(element, node.left)
     else
