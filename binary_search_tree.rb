@@ -57,6 +57,35 @@ class Tree
     end
   end
 
+  def insert(element, node = root)
+    return "#{element} is already in the tree" if element == node.data
+
+    return "'#{element}' is invalid" unless element.is_a?(Numeric)
+
+    if element < node.data
+      insert_on_side(element, node, node.left, 'left')
+    else
+      insert_on_side(element, node, node.right, 'right')
+    end
+  end
+
+  def insert_on_side(element, node, side_node, side)
+    if side_node.nil?
+      insert_node(element, node, side)
+    else
+      insert(element, side_node)
+    end
+  end
+
+  def insert_node(element, node, side)
+    new_node = Node.new(element)
+    if side == 'left'
+      node.left = new_node
+    else
+      node.right = new_node
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
