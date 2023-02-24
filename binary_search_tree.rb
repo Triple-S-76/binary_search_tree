@@ -19,9 +19,13 @@ end
 class Tree
   attr_reader :root
 
-  def initialize(array)
+  def initialize(array = [])
     p "this is the original array: #{array}"
-    @root = build_tree(array, 0, array.length - 1)
+    if array.empty?
+      @root = Node.new(nil)
+    else
+      @root = build_tree(array, 0, array.length - 1)
+    end
   end
 
   def build_tree(array, index_start, index_end)
@@ -40,9 +44,9 @@ class Tree
   end
 
   def find(element, node = root)
-    return puts "'#{element}' is invalid" if element.class != Integer
+    return puts "'#{element}' is invalid" unless element.is_a?(Numeric)
 
-    return puts "#{element} is not in the tree" if node.nil?
+    return puts "#{element} is not in the tree" if node.nil? || node.data.nil?
 
     if element == node.data
       puts "#{element} is in the tree"

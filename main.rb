@@ -20,5 +20,5 @@ puts
 puts
 
 binary_search_tree.find(4)
-binary_search_tree.find(99)
+binary_search_tree.find(4.5)
 binary_search_tree.find('j')
