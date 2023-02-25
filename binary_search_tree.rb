@@ -58,9 +58,14 @@ class Tree
   end
 
   def insert(element, node = root)
-    return "#{element} is already in the tree" if element == node.data
-
     return "'#{element}' is invalid" unless element.is_a?(Numeric)
+
+    if element == node.data
+      return "#{element} is already in the tree"
+    elsif root.data.nil?
+      new_root = Node.new(element)
+      return @root = new_root
+    end
 
     if element < node.data
       insert_on_side(element, node, node.left, 'left')

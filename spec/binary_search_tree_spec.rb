@@ -59,3 +59,16 @@ describe Tree do
     end
   end
 end
+
+describe Tree do
+  describe 'checks insert method works with empty tree' do
+    it 'creates a new empty tree, inserts a node & checks it' do
+      @empty_tree = Tree.new()
+      expect(@empty_tree.root.data).to be nil
+      @empty_tree.insert(101)
+      expect(@empty_tree.root.data).to be == 101
+      expect(@empty_tree.root.left).to be nil
+      expect(@empty_tree.root.right).to be nil
+    end
+  end
+end
