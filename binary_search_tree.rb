@@ -91,6 +91,142 @@ class Tree
     end
   end
 
+  def delete(element)
+    node_to_delete_info = get_node_to_delete_info(element)
+    if node_to_delete_info[:node_to_delete].nil?
+      p 'Element is not in the tree'
+    else
+      delete_node(node_to_delete_info)
+    end
+  end
+
+  def delete_node(node_to_delete_info)
+    if node_to_delete_info[:node_is_root] == true
+      if node_to_delete_info[:node_is_leaf] == true
+        @root = Node.new
+      elsif node_to_delete_info[:left_child].nil?
+        @root = node_to_delete_info[:right_child]
+      elsif node_to_delete_info[:right_child].nil?
+        @root = node_to_delete_info[:left_child]
+      else
+        node_to_move_info = find_node_to_move(node_to_delete_info)
+        delete_node_with_two_children(node_to_delete_info, node_to_move_info)
+      end
+    else # above here is only if the node to delete is root
+      if node_to_delete_info[:node_is_leaf] == true
+        if node_to_delete_info[:parent_node_side] == 'left'
+          node_to_delete_info[:parent_node].left = nil
+        else
+          node_to_delete_info[:parent_node].right = nil
+        end
+      elsif node_to_delete_info[:left_child].nil?
+        if node_to_delete_info[:parent_node_side] == 'left'
+          node_to_delete_info[:parent_node].left = node_to_delete_info[:right_child]
+        else
+          node_to_delete_info[:parent_node].right = node_to_delete_info[:right_child]
+        end
+      elsif node_to_delete_info[:right_child].nil?
+        if node_to_delete_info[:parent_node_side] == 'left'
+          node_to_delete_info[:parent_node].left = node_to_delete_info[:left_child]
+        else
+          node_to_delete_info[:parent_node].right = node_to_delete_info[:left_child]
+        end
+      else
+        node_to_move_info = find_node_to_move(node_to_delete_info)
+        delete_node_with_two_children(node_to_delete_info, node_to_move_info)
+      end
+    end
+  end
+
+  def delete_node_with_two_children(node_to_delete_info, node_to_move_info)
+    if node_to_move_info[:parent_node_side] == 'left'
+      node_to_move_info[:parent_node].left = node_to_move_info[:right_child]
+    else
+      node_to_move_info[:parent_node].right = node_to_move_info[:right_child]
+    end
+    if node_to_delete_info[:parent_node_side] == 'left'
+      node_to_delete_info[:parent_node].left = node_to_move_info[:node_to_move]
+    elsif node_to_delete_info[:parent_node_side] == 'right'
+      node_to_delete_info[:parent_node].right = node_to_move_info[:node_to_move]
+    else
+      @root = node_to_move_info[:node_to_move]
+    end
+    delete_right = node_to_delete_info[:node_to_delete].right
+    delete_left = node_to_delete_info[:node_to_delete].left
+    node_to_move = node_to_move_info[:node_to_move]
+
+    node_to_move.right = delete_right
+    node_to_move.left = delete_left
+  end
+
+  def find_node_to_move(node_to_delete_info)
+    node_to_delete_info[:parent_node] = nil if node_to_delete_info[:node_to_delete] == node_to_delete_info[:parent_node]
+
+    if node_to_delete_info[:right_child].nil?
+      node_to_move = node_to_delete_info[:left_child]
+      parent_node = node_to_delete_info[:node_to_delete]
+      until node_to_move.right.nil?
+        parent_node = node_to_move
+        node_to_move = node_to_move.right
+      end
+    else
+      node_to_move = node_to_delete_info[:right_child]
+      parent_node = node_to_delete_info[:node_to_delete]
+      until node_to_move.left.nil?
+        parent_node = node_to_move
+        node_to_move = node_to_move.left
+      end
+    end
+    set_node_to_move_info(node_to_move, parent_node)
+  end
+
+  def set_node_to_move_info(node_to_move, parent_node)
+    node_to_move_info = make_node_info_hash
+    node_to_move_info[:node_to_move] = node_to_move
+    node_to_move_info[:right_child] = node_to_move.right
+    node_to_move_info[:left_child] = node_to_move.left
+    node_to_move_info[:parent_node] = parent_node
+    node_to_move_info[:parent_node_side] = 'left' if node_to_move == parent_node.left
+    node_to_move_info[:parent_node_side] = 'right' if node_to_move == parent_node.right
+    node_to_move_info[:node_is_leaf] = true if node_to_move.left.nil? && node_to_move.right.nil?
+    node_to_move_info
+  end
+
+  def make_node_info_hash
+    node_info = {
+      node_to_delete: nil,
+      node_to_move: nil,
+      left_child: nil,
+      right_child: nil,
+      parent_node: nil,
+      parent_node_side: nil,
+      node_is_root: false,
+      node_is_leaf: false
+    }
+    node_info
+  end
+
+  def get_node_to_delete_info(element, current_node = root, parent_node = root)
+    node_to_delete_info = make_node_info_hash
+
+    return node_to_delete_info if current_node.data.nil?
+    if element < current_node.data
+      get_node_to_delete_info(element, current_node.left, current_node)
+    elsif element > current_node.data
+      get_node_to_delete_info(element, current_node.right, current_node)
+    elsif element == current_node.data
+      node_to_delete_info[:node_to_delete] = current_node
+      node_to_delete_info[:left_child] = current_node.left
+      node_to_delete_info[:right_child] = current_node.right
+      node_to_delete_info[:parent_node] = parent_node
+      node_to_delete_info[:parent_node_side] = 'left'  if current_node == parent_node.left
+      node_to_delete_info[:parent_node_side] = 'right' if current_node == parent_node.right
+      node_to_delete_info[:node_is_root] = true if current_node == root
+      node_to_delete_info[:node_is_leaf] = true if current_node.left.nil? && current_node.right.nil?
+      node_to_delete_info
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
