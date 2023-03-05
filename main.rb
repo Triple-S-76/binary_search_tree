@@ -12,6 +12,8 @@ array2 = random_numbers.sort.uniq
 binary_search_tree = Tree.new(array1)
 binary_search_tree.pretty_print
 
+# p binary_search_tree.level_order
+
 3.times { puts }
 binary_search_tree.pretty_print
 3.times { puts }

@@ -572,12 +572,27 @@ describe Tree do
   end
 end
 
-# describe Tree do
-#   describe '' do
-#     it '' do
-#     end
-#   end
-# end
+describe Tree do
+  before(:each) do
+    array = []
+    15.times { |num| array << num }
+    @tree = Tree.new(array)
+  end
+  describe 'checks the Level Order method' do
+    it 'checks the level order traversal' do
+      expect(@tree.root.data).to be == 7
+      expect(@tree.root.left.left.right.data).to be == 2
+      expect(@tree.root.right.left.right.data).to be == 10
+    end
+    it 'checks an array of all the values in level order from Root' do
+      expect(@tree.level_order).to be == [7, 3, 11, 1, 5, 9, 13, 0, 2, 4, 6, 8, 10, 12, 14]
+    end
+    it 'checks an array of all the values in level order from node 3' do
+      start_node = @tree.root.left
+      expect(@tree.level_order(start_node)).to be == [3, 1, 5, 0, 2, 4, 6]
+    end
+  end
+end
 
 # describe Tree do
 #   describe '' do

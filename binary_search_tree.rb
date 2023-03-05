@@ -227,6 +227,22 @@ class Tree
     end
   end
 
+  def level_order(block = root)
+    queue = [block]
+    array_of_data_values = []
+
+    loop do
+      break if queue.empty?
+
+      current = queue[0]
+      array_of_data_values << current.data
+      queue << current.left unless current.left.nil?
+      queue << current.right unless current.right.nil?
+      queue.shift
+    end
+    array_of_data_values
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
