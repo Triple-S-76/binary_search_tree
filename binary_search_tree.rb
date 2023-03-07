@@ -227,9 +227,8 @@ class Tree
     end
   end
 
-  def level_order(block = root)
+  def level_order(block = root, array_of_data_values = [])
     queue = [block]
-    array_of_data_values = []
 
     loop do
       break if queue.empty?
@@ -240,6 +239,50 @@ class Tree
       queue << current.right unless current.right.nil?
       queue.shift
     end
+    array_of_data_values
+  end
+
+  def inorder(block = root, array_of_data_values = [])
+    return if block.nil?
+
+    queue = [block]
+
+    return if queue.nil?
+
+    current = queue[0]
+    inorder(current.left, array_of_data_values)
+    array_of_data_values << block.data
+    inorder(current.right, array_of_data_values)
+    queue.shift
+    array_of_data_values
+  end
+
+  def preorder(block = root, array_of_data_values = [])
+    return if block.nil?
+
+    queue = [block]
+
+    return if queue.nil?
+
+    current = queue[0]
+    array_of_data_values << block.data
+    preorder(current.left, array_of_data_values)
+    preorder(current.right, array_of_data_values)
+    queue.shift
+    array_of_data_values
+  end
+
+  def postorder(block = root, array_of_data_values = [])
+    return if block.nil?
+
+    queue = [block]
+
+    return if queue.nil?
+
+    current = queue[0]
+    postorder(current.left, array_of_data_values)
+    postorder(current.right, array_of_data_values)
+    array_of_data_values << block.data
     array_of_data_values
   end
 

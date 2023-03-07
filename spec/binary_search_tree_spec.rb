@@ -591,6 +591,27 @@ describe Tree do
       start_node = @tree.root.left
       expect(@tree.level_order(start_node)).to be == [3, 1, 5, 0, 2, 4, 6]
     end
+    it 'checks the inorder method' do
+      expect(@tree.inorder).to be == [0, 1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14]
+    end
+    it 'check the inorder method from node 11' do
+      start_node = @tree.root.right
+      expect(@tree.inorder(start_node)).to be == [8, 9, 10, 11, 12, 13, 14]
+    end
+    it 'checks the preorder method' do
+      expect(@tree.preorder).to be == [7, 3, 1, 0, 2, 5, 4, 6, 11, 9, 8, 10, 13, 12, 14]
+    end
+    it 'checks the preorder method from node 11' do
+      start_node = @tree.root.right
+      expect(@tree.preorder(start_node)).to be == [11, 9, 8, 10, 13, 12, 14]
+    end
+    it 'checks the postorder method' do
+      expect(@tree.postorder).to be == [0, 2, 1, 4, 6, 5, 3, 8, 10, 9, 12, 14, 13, 11, 7]
+    end
+    it '' do
+      start_node = @tree.root.right
+      expect(@tree.postorder(start_node)).to be == [8, 10, 9, 12, 14, 13, 11]
+    end
   end
 end
 

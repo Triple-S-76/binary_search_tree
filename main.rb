@@ -13,6 +13,9 @@ binary_search_tree = Tree.new(array1)
 binary_search_tree.pretty_print
 
 # p binary_search_tree.level_order
+# p binary_search_tree.inorder
+# p binary_search_tree.preorder
+# p binary_search_tree.postorder
 
 3.times { puts }
 binary_search_tree.pretty_print
