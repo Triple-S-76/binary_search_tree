@@ -615,12 +615,31 @@ describe Tree do
   end
 end
 
-# describe Tree do
-#   describe '' do
-#     it '' do
-#     end
-#   end
-# end
+describe 'checks height method' do
+  before(:each) do
+    array = []
+    15.times { |num| array << num }
+    @tree = Tree.new(array)
+  end
+
+  describe 'tests the height of different nodes' do
+    it 'tests the height of root' do
+      expect(@tree.height).to be == 3
+    end
+    it 'tests the height of node 11' do
+      start_node = 11
+      expect(@tree.height(start_node)).to be == 2
+    end
+    it 'tests the height of node 5' do
+      start_node = 5
+      expect(@tree.height(start_node)).to be == 1
+    end
+    it 'tests the height of node 12' do
+      start_node = 12
+      expect(@tree.height(start_node)).to be == 0
+    end
+  end
+end
 
 # describe Tree do
 #   describe '' do

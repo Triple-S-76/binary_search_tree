@@ -286,6 +286,24 @@ class Tree
     array_of_data_values
   end
 
+  def find_and_return_node(data, node = root)
+    if data == node.data
+      node
+    elsif data < node.data
+      find_and_return_node(data, node.left)
+    else
+      find_and_return_node(data, node.right)
+    end
+  end
+
+  def height(node = root, height = -1)
+    node.class != Node ? node = find_and_return_node(node) : 'it is a node'
+    array = [height += 1]
+    array << height(node.left, height) unless node.left.nil?
+    array << height(node.right, height) unless node.right.nil?
+    array.max
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
