@@ -304,6 +304,19 @@ class Tree
     array.max
   end
 
+  def depth(data = root.data, current_node = root, depth = -1)
+    depth += 1
+    return "#{data} is not in the tree" if current_node.nil?
+
+    return depth if data == current_node.data
+
+    if data < current_node.data
+      depth(data, current_node.left, depth)
+    else
+      depth(data, current_node.right, depth)
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"

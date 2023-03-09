@@ -641,6 +641,53 @@ describe 'checks height method' do
   end
 end
 
+describe 'tests the depth of different nodes' do
+  before(:each) do
+    array = []
+    15.times { |num| array << num }
+    @tree = Tree.new(array)
+  end
+
+  describe 'tests the depth of different nodes' do
+    it 'tests the depth of the root node' do
+      expect(@tree.depth).to be == 0
+    end
+    it 'tests the depth of node 14' do
+      expect(@tree.depth(14)).to be == 3
+    end
+    it 'tests the depth of node 5' do
+      expect(@tree.depth(5)).to be == 2
+    end
+    it 'tests the depth of node 11' do
+      expect(@tree.depth(11)).to be == 1
+    end
+    it 'tests the output of a node that is not in the tree' do
+      expect(@tree.depth(99)).to be == '99 is not in the tree'
+    end
+  end
+end
+
+# describe Tree do
+#   describe '' do
+#     it '' do
+#     end
+#   end
+# end
+
+# describe Tree do
+#   describe '' do
+#     it '' do
+#     end
+#   end
+# end
+
+# describe Tree do
+#   describe '' do
+#     it '' do
+#     end
+#   end
+# end
+
 # describe Tree do
 #   describe '' do
 #     it '' do

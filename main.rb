@@ -17,6 +17,7 @@ binary_search_tree.pretty_print
 # p binary_search_tree.preorder
 # p binary_search_tree.postorder
 # p binary_search_tree.height(9)
+# p binary_search_tree.depth(99)
 
 3.times { puts }
 binary_search_tree.pretty_print
