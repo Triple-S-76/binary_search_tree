@@ -1,11 +1,10 @@
-
 require './binary_search_tree'
 
 array1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
 
 random_numbers = []
 50.times do
-  random_numbers << rand(10000)
+  random_numbers << rand(10_000)
 end
 array2 = random_numbers.sort.uniq
 
@@ -18,6 +17,8 @@ binary_search_tree.pretty_print
 # p binary_search_tree.postorder
 # p binary_search_tree.height(9)
 # p binary_search_tree.depth(99)
+# p binary_search_tree.balanced
+# p binary_search_tree.rebalance
 
 3.times { puts }
 binary_search_tree.pretty_print

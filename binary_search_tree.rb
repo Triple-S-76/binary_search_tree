@@ -317,6 +317,32 @@ class Tree
     end
   end
 
+  def balanced(current_node = root)
+    return 0 if current_node.nil?
+
+    left_height = balanced(current_node.left)
+    return 'The tree is not balanced' if left_height == 'The tree is not balanced'
+
+    right_height = balanced(current_node.right)
+    return 'The tree is not balanced' if right_height == 'The tree is not balanced'
+
+    balance_check = left_height - right_height
+    return 'The tree is not balanced' if balance_check.abs > 1
+
+    1 + [left_height, right_height].max
+  end
+
+  def rebalance
+    if balanced == 'The tree is not balanced'
+      new_array = inorder
+      @root = build_tree(new_array, 0, new_array.length - 1)
+      rebalance
+      'The tree has been rebalanced'
+    else
+      'The tree is balanced'
+    end
+  end
+
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"

@@ -592,7 +592,7 @@ describe Tree do
       expect(@tree.level_order(start_node)).to be == [3, 1, 5, 0, 2, 4, 6]
     end
     it 'checks the inorder method' do
-      expect(@tree.inorder).to be == [0, 1, 2, 3, 4, 5, 6, 7, 8 ,9, 10, 11, 12, 13, 14]
+      expect(@tree.inorder).to be == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
     end
     it 'check the inorder method from node 11' do
       start_node = @tree.root.right
@@ -667,26 +667,100 @@ describe 'tests the depth of different nodes' do
   end
 end
 
-# describe Tree do
-#   describe '' do
-#     it '' do
-#     end
-#   end
-# end
+describe 'tests the balanced method' do
+  before(:each) do
+    @tree = Tree.new([])
+  end
 
-# describe Tree do
-#   describe '' do
-#     it '' do
-#     end
-#   end
-# end
+  describe 'creates tree of different shapes and checks the balance method' do
+    it 'adds nodes and checks for balance' do
+      @tree.insert(1)
+      expect(@tree.balanced).not_to be 'The tree is not balanced'
+      @tree.insert(2)
+      expect(@tree.balanced).not_to be 'The tree is not balanced'
+      @tree.insert(3)
+      expect(@tree.balanced).to eq 'The tree is not balanced'
+      @tree.insert(0)
+      expect(@tree.balanced).not_to be 'The tree is not balanced'
+    end
+  end
+end
 
-# describe Tree do
-#   describe '' do
-#     it '' do
-#     end
-#   end
-# end
+describe 'tests the Rebalace method' do
+  describe 'creates a tree of different shapes and checks the Rebalace method' do
+    it 'adds node and checks Rebalance' do
+      @tree = Tree.new([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      expect(@tree.rebalance).to eq 'The tree is balanced'
+      @tree.insert(100)
+      @tree.insert(102)
+      @tree.insert(103)
+      expect(@tree.balanced).to eq 'The tree is not balanced'
+      expect(@tree.rebalance).to eq 'The tree has been rebalanced'
+      expect(@tree.rebalance).to eq 'The tree is balanced'
+      @tree.insert(21)
+      @tree.insert(22)
+      @tree.insert(23)
+      @tree.insert(24)
+      @tree.insert(25)
+      expect(@tree.balanced).to eq 'The tree is not balanced'
+      expect(@tree.rebalance).to eq 'The tree has been rebalanced'
+      expect(@tree.rebalance).to eq 'The tree is balanced'
+    end
+  end
+end
+
+describe 'The Odin Project final test' do
+  describe 'The Odin Project final test' do
+    it 'Follow\'s the steps to Tie it all together' do
+
+      # 3.times { puts }
+      # p 'Create a binary search tree from an array of random numbers'
+      @tree = Tree.new(Array.new(15) { rand(1..100) }.sort)
+      # @tree.pretty_print
+      # 3.times { puts }
+
+      # p 'Confirm that the tree is balanced by calling #balanced?'
+      expect(@tree.balanced).to_not eq 'The tree is not balanced'
+      # p expect(@tree.balanced).to_not eq 'The tree is not balanced'
+      # 3.times { puts }
+
+      # p 'Print out all elements in level, pre, post, and in order'
+      # puts "#{@tree.level_order} - The tree in level order"
+      # puts "#{@tree.preorder} - The tree in preorder"
+      # puts "#{@tree.postorder} - The tree in postorder"
+      # puts "#{@tree.inorder} - The tree in inorder"
+      # 3.times { puts }
+
+      # p 'Unbalance the tree by adding several numbers > 100'
+      higher_numbers = (Array.new(15) { rand(101..200) }.sort)
+      higher_numbers.each { |num| @tree.insert(num) }
+      # @tree.pretty_print
+      # 3.times { puts }
+
+      # p 'Confirm that the tree is unbalanced by calling #balanced?'
+      expect(@tree.balanced).to eq 'The tree is not balanced'
+      # p expect(@tree.balanced).to eq 'The tree is not balanced'
+      # 3.times { puts }
+
+      # p 'Balance the tree by calling #rebalance'
+      @tree.rebalance
+      # @tree.pretty_print
+      # 3.times { puts }
+
+      # p 'Confirm that the tree is balanced by calling #balanced?'
+      expect(@tree.balanced).to_not eq 'The tree is not balanced'
+      # p expect(@tree.balanced).to_not eq 'The tree is not balanced'
+      # 3.times { puts }
+
+      # p 'Print out all elements in level, pre, post, and in order'
+      # puts "#{@tree.level_order} - The tree in level order"
+      # puts "#{@tree.preorder} - The tree in preorder"
+      # puts "#{@tree.postorder} - The tree in postorder"
+      # puts "#{@tree.inorder} - The tree in inorder"
+      # 3.times { puts }
+    end
+  end
+end
 
 # describe Tree do
 #   describe '' do
