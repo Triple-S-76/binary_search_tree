@@ -16,8 +16,15 @@ new_tree.insert(0)
 new_tree.insert(1.5)
 puts
 
-p new_tree.find(7)
+new_tree.find(7)
 puts
+
+p new_tree.level_order_recursive
+puts
+
+p new_tree.level_order_loop
+puts
+
 
 new_tree.pretty_print
 puts

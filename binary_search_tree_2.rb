@@ -78,5 +78,34 @@ class Tree
       current_node
     end
   end
+
+  def level_order_recursive(current_node = root, queue = [], array = [])
+    current_node = find(current_node) if current_node.class != Node
+    return if current_node.data.nil?
+
+    array << current_node.data unless current_node.nil?
+    queue << current_node.left unless current_node.left.nil?
+    queue << current_node.right unless current_node.right.nil?
+
+    return array if queue.empty?
+
+    next_node = queue.shift
+    level_order_recursive(next_node, queue, array)
+  end
+
+  def level_order_loop(current_node = root)
+    current_node = find(current_node) if current_node.class != Node
+
+    array = []
+    queue = [current_node]
+
+    until queue.empty?
+      current_node = queue.shift
+      array << current_node.data
+      queue << current_node.left unless current_node.left.nil?
+      queue << current_node.right unless current_node.right.nil?
+    end
+    array
+  end
 end
 
