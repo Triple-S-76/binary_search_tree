@@ -19,12 +19,25 @@ puts
 new_tree.find(7)
 puts
 
+p 'level_order_recursive'
 p new_tree.level_order_recursive
 puts
 
+p 'level_order_loop'
 p new_tree.level_order_loop
 puts
 
+p 'preorder_recursive'
+p new_tree.preorder_recursive(4)
+puts
+
+p 'inorder_recursive'
+p new_tree.inorder_recursive(4)
+puts
+
+p 'postorder_recursive'
+p new_tree.postorder_recursive(4)
+puts
 
 new_tree.pretty_print
 puts

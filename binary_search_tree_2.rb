@@ -107,5 +107,37 @@ class Tree
     end
     array
   end
-end
 
+  def preorder_recursive(current_node = root, array = [])
+    return if current_node.nil?
+
+    current_node = find(current_node) if current_node.class != Node
+    unless current_node.nil?
+      array << current_node.data
+      preorder_recursive(current_node.left, array)
+      preorder_recursive(current_node.right, array)
+    end
+    array
+  end
+
+  def inorder_recursive(current_node = root, array = [])
+    return if current_node.nil?
+
+    current_node = find(current_node) if current_node.class != Node
+
+    inorder_recursive(current_node.left, array) unless current_node.left.nil?
+    array << current_node.data
+    inorder_recursive(current_node.right, array) unless current_node.right.nil?
+    array
+  end
+
+  def postorder_recursive(current_node = root, array = [])
+    return if current_node.nil?
+
+    current_node = find(current_node) if current_node.class != Node
+
+    postorder_recursive(current_node.left, array) unless current_node.left.nil?
+    postorder_recursive(current_node.right, array) unless current_node.right.nil?
+    array << current_node.data
+  end
+end
