@@ -16,8 +16,8 @@ class Tree
   attr_reader :root
 
   def initialize
-    p 'The tree has been initialized'
-    puts
+    # p 'The tree has been initialized'
+    # puts
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
@@ -74,7 +74,7 @@ class Tree
     elsif data > current_node.data
       find(data, current_node.right)
     else
-      p "Found #{data} in the tree"
+      # p "Found #{data} in the tree"
       current_node
     end
   end
