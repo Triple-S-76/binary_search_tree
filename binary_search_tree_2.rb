@@ -120,6 +120,22 @@ class Tree
     array
   end
 
+  def preorder_loop(starting_node = root)
+    return 'The tree is empty' if starting_node.nil?
+
+    starting_node = find(starting_node) if starting_node.class != Node
+    array = []
+    stack = [starting_node]
+
+    until stack.empty?
+      current_node = stack.pop
+      array << current_node.data
+      stack << current_node.right unless current_node.right.nil?
+      stack << current_node.left unless current_node.left.nil?
+    end
+    array
+  end
+
   def inorder_recursive(current_node = root, array = [])
     return if current_node.nil?
 
@@ -128,6 +144,45 @@ class Tree
     inorder_recursive(current_node.left, array) unless current_node.left.nil?
     array << current_node.data
     inorder_recursive(current_node.right, array) unless current_node.right.nil?
+    array
+  end
+
+  def inorder_loop(starting_node = root)
+    return 'The tree is empty' if starting_node.nil?
+
+    starting_node = find(starting_node) if starting_node.class != Node
+    array = []
+    stack = []
+    current_node = starting_node
+
+    while current_node || !stack.empty?
+      while current_node
+        stack << current_node
+        current_node = current_node.left
+      end
+      current_node = stack.pop
+      array << current_node.data
+      current_node = current_node.right
+    end
+    array
+  end
+
+  def inorder_loop2(starting_node = root)
+    starting_node = find(starting_node) if starting_node.class != Node
+    current_node = starting_node
+    stack = []
+    array = []
+
+    until current_node.nil? && stack.empty?
+      if current_node.nil?
+        current_node = stack.pop
+        array << current_node.data
+        current_node = current_node.right
+      else
+        stack << current_node
+        current_node = current_node.left
+      end
+    end
     array
   end
 

@@ -28,15 +28,27 @@ p new_tree.level_order_loop
 puts
 
 p 'preorder_recursive'
-p new_tree.preorder_recursive(4)
+p new_tree.preorder_recursive
+puts
+
+p 'preorder_loop'
+p new_tree.preorder_loop
 puts
 
 p 'inorder_recursive'
-p new_tree.inorder_recursive(4)
+p new_tree.inorder_recursive
+puts
+
+p 'inorder_loop'
+p new_tree.inorder_loop
+puts
+
+p 'inorder_loop_2'
+p new_tree.inorder_loop2
 puts
 
 p 'postorder_recursive'
-p new_tree.postorder_recursive(4)
+p new_tree.postorder_recursive
 puts
 
 new_tree.pretty_print
