@@ -62,8 +62,71 @@ class Tree
     end
   end
 
-  def delete
-    # delete
+  def delete(data)
+    p 123
+    parent_of_node_to_delete = find_parent_of_node_to_delete(data)
+    p "parent_of_node_to_delete: #{parent_of_node_to_delete.data}"
+    return p "#{data} is not in the tree" if parent_of_node_to_delete.nil?
+
+    if parent_of_node_to_delete == 'root'
+      p 'node to delete is root node'
+    else
+      node_to_delete_is_side_of_parent = find_side_of_node_to_delete(data, parent_of_node_to_delete)
+      p "The node to delete is the child of its parent on side: #{node_to_delete_is_side_of_parent}"
+      node_to_delete = find_node_to_delete(parent_of_node_to_delete, node_to_delete_is_side_of_parent)
+      p "The node to delete is: #{node_to_delete} - with data: #{node_to_delete.data}"
+      node_to_delete_children_info = find_node_to_delete_children_info(node_to_delete)
+      p node_to_delete_children_info
+    end
+  end
+
+  def find_node_to_delete_children_info(node_to_delete)
+    if node_to_delete.left.nil? && node_to_delete.right.nil?
+      'no children'
+    elsif node_to_delete.left.nil?
+      'right child'
+    elsif node_to_delete.right.nil?
+      'left child'
+    else
+      '2 children'
+    end
+  end
+
+  def find_node_to_delete(parent_of_node_to_delete, node_to_delete_side)
+    if node_to_delete_side == 'left'
+      parent_of_node_to_delete.left
+    else
+      parent_of_node_to_delete.right
+    end
+  end
+
+  def find_parent_of_node_to_delete(data, current_node = root)
+    return 'root' if data == root.data
+
+    parent_node = nil
+    current_node = root
+    until current_node.nil? || current_node.data == data
+      if data < current_node.data
+        return nil if current_node.left.nil?
+
+        parent_node = current_node
+        current_node = current_node.left
+      elsif data > current_node.data
+        return nil if current_node.right.nil?
+
+        parent_node = current_node
+        current_node = current_node.right
+      end
+    end
+    parent_node
+  end
+
+  def find_side_of_node_to_delete(data, parent_of_node_to_delete)
+    if data == parent_of_node_to_delete.left.data
+      'left'
+    else
+      'right'
+    end
   end
 
   def find(data, current_node = root)

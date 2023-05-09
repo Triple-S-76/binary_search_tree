@@ -11,13 +11,13 @@ new_tree.build_tree(array)
 new_tree.pretty_print
 puts
 
-new_tree.insert(99)
-new_tree.insert(0)
-new_tree.insert(1.5)
-puts
+# new_tree.insert(99)
+# new_tree.insert(0)
+# new_tree.insert(1.5)
+# puts
 
-new_tree.find(7)
-puts
+# new_tree.find(7)
+# puts
 
 # p 'level_order_recursive'
 # p new_tree.level_order_recursive
@@ -50,6 +50,12 @@ puts
 # p 'postorder_recursive'
 # p new_tree.postorder_recursive
 # puts
+
+30.times { puts }
+new_tree.insert(16)
+new_tree.pretty_print
+new_tree.delete(14)
+puts
 
 new_tree.pretty_print
 puts
